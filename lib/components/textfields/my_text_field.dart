@@ -18,7 +18,7 @@ class MyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
       child: TextFormField(
         controller: controller,
         obscureText: obscreText,
@@ -30,6 +30,7 @@ class MyTextField extends StatelessWidget {
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.tertiary,
             ),
+            borderRadius: BorderRadius.circular(16),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
@@ -40,9 +41,12 @@ class MyTextField extends StatelessWidget {
           filled: true,
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(16),
           ),
+
           focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(16),
           ),
         ),
       ),

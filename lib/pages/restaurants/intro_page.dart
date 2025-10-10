@@ -1,6 +1,7 @@
 import 'package:curved_text/curved_text.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant/components/buttons/my_explore_button.dart';
+import 'package:restaurant/components/styles/textstyle.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
@@ -17,31 +18,28 @@ class IntroPage extends StatelessWidget {
         ),
         Positioned(
           top: 120,
-          left: 20,
-          right: 20,
+          left: 0,
+          right: 0,
           child: Center(
             child: Opacity(
-              opacity:0.7,
+              opacity: 0.7,
               child: CurvedText(
                 curvature: 0.004,
                 text: "Restaurant",
-                textStyle: TextStyle(
-                  fontFamily: 'ALGER',
-                  fontSize: 45,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 8,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
+                textStyle: inTroText,
               ),
             ),
           ),
         ),
         Positioned(
           bottom: 70,
-          left: 50,
-          child: MyExploreButton(
-            onTap: () => Navigator.pushNamed(context, '/restaurant_page'),
-            text: "Let's Explore",
+          left: 0,
+          right: 0,
+          child: Center(
+            child: MyExploreButton(
+              onTap: () => Navigator.pushNamed(context, '/restaurant_page'),
+              text: "Let's Explore",
+            ),
           ),
         ),
       ],

@@ -1,3 +1,4 @@
+import 'package:drop_shadow/drop_shadow.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant/components/styles/textstyle.dart';
 
@@ -10,17 +11,19 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(25),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.tertiary,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: boldText.copyWith(
-              color: Theme.of(context).colorScheme.inversePrimary,
+      child: DropShadow(
+        child: Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.tertiary,
+            borderRadius: BorderRadius.circular(32),
+          ),
+          child: Center(
+            child: Text(
+              text,
+              style: boldText.copyWith(
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
             ),
           ),
         ),

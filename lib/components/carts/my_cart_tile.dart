@@ -139,7 +139,7 @@ class MyCartTile extends StatelessWidget {
             // increment or decrement quantity
             Positioned(
               top: 45,
-              left: 290,
+              right: 5,
               child: MyQuantitySelector(
                 quantity: cartItem.quantity,
                 food: cartItem.food,

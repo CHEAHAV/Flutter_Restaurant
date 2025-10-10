@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant/components/drawers/my_drawer_tile.dart';
+import 'package:restaurant/pages/restaurants/intro_page.dart';
 import 'package:restaurant/services/authentication/auth_service.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -59,9 +60,10 @@ class _MyDrawerState extends State<MyDrawer> {
           MyDrawerTile(
             text: "E X I T",
             icon: Icons.transit_enterexit,
-            onTap: () {
-              Navigator.pushNamed(context, '/intro_page');
-            },
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (contex) => IntroPage()),
+            ),
           ),
           Spacer(),
           // logout list tile

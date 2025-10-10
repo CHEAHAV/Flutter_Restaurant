@@ -1,7 +1,9 @@
+import 'package:drop_shadow/drop_shadow.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant/components/buttons/my_button.dart';
 import 'package:restaurant/components/connections/my_connection.dart';
+import 'package:restaurant/components/styles/textstyle.dart';
 import 'package:restaurant/components/textfields/my_text_field.dart';
 import 'package:restaurant/services/authentication/auth_service.dart';
 
@@ -72,12 +74,14 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 50),
+                    padding: const EdgeInsets.only(top: 20),
                     // logo// logo
-                    child: Center(child: Icon(Icons.lock, size: 100)),
+                    child: DropShadow(
+                      child: Center(child: Icon(Icons.lock, size: 150)),
+                    ),
                   ),
                   // welcome back
-                  SizedBox(height: 25),
+                  SizedBox(height: 15),
                   Text(
                     "Welcome back to login minimal shop!",
                     style: TextStyle(
@@ -152,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                     onTap: () {
                       signUserIn(context);
                     },
-                    text: "Sign In",
+                    text: "Sign In".toUpperCase(),
                   ),
 
                   // or continure with
@@ -212,9 +216,8 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.pushNamed(context, '/register_page'),
                         child: Text(
                           "Register now",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
+                          style: smallBoldText.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ),

@@ -90,33 +90,35 @@ class _PaymentPageState extends State<PaymentPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child: ListView(
           children: [
-            // credit card
-            CreditCardWidget(
-              cardNumber: cardNumber,
-              expiryDate: expiryDate,
-              cardHolderName: cardHolderName,
-              cvvCode: cvvCode,
-              showBackView: isCvvFocused,
-              onCreditCardWidgetChange: (p0) {},
-            ),
+            Column(
+              children: [
+                // credit card
+                CreditCardWidget(
+                  cardNumber: cardNumber,
+                  expiryDate: expiryDate,
+                  cardHolderName: cardHolderName,
+                  cvvCode: cvvCode,
+                  showBackView: isCvvFocused,
+                  onCreditCardWidgetChange: (p0) {},
+                ),
 
-            // credit card form
-            CreditCardForm(
-              cardNumber: cardNumber,
-              expiryDate: expiryDate,
-              cardHolderName: cardHolderName,
-              cvvCode: cvvCode,
-              onCreditCardModelChange: (data) {
-                cardInformation(data);
-              },
-              formKey: formKey,
+                // credit card form
+                CreditCardForm(
+                  cardNumber: cardNumber,
+                  expiryDate: expiryDate,
+                  cardHolderName: cardHolderName,
+                  cvvCode: cvvCode,
+                  onCreditCardModelChange: (data) {
+                    cardInformation(data);
+                  },
+                  formKey: formKey,
+                ),
+                SizedBox(height: 80),
+                MyButton(onTap: userTappedPay, text: "Pay now".toUpperCase()),
+              ],
             ),
-
-            Spacer(),
-            MyButton(onTap: userTappedPay, text: "Pay now".toUpperCase()),
-            SizedBox(height: 30),
           ],
         ),
       ),

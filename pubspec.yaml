@@ -101,6 +101,9 @@ flutter:
     - family: TIMES
       fonts:
         - asset: assets/fonts/TIMES.TTF
+    - family: Wild
+      fonts:
+        - asset: assets/fonts/Wild.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

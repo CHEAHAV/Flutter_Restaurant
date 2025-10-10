@@ -1,7 +1,9 @@
+import 'package:drop_shadow/drop_shadow.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant/components/buttons/my_button.dart';
 import 'package:restaurant/components/connections/my_connection.dart';
+import 'package:restaurant/components/styles/textstyle.dart';
 import 'package:restaurant/components/textfields/my_text_field.dart';
 import 'package:restaurant/services/authentication/auth_service.dart';
 
@@ -77,13 +79,18 @@ class _RegisterpageState extends State<Registerpage> {
               key: _formKey,
               child: Column(
                 children: [
-                  SizedBox(height: 25),
+                  SizedBox(height: 15),
                   // logo
-                  Center(child: Icon(Icons.lock, size: 100)),
+                  DropShadow(child: Center(child: Icon(Icons.lock, size: 150))),
 
-                  SizedBox(height: 25),
+                  SizedBox(height: 15),
                   // text
-                  Text("You can register now...!"),
+                  Text(
+                    "You can register now...!",
+                    style: smallText.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
 
                   // user
                   SizedBox(height: 25),
@@ -171,7 +178,7 @@ class _RegisterpageState extends State<Registerpage> {
                     onTap: () {
                       registerUser(context);
                     },
-                    text: "Sign UP",
+                    text: "Sign UP".toUpperCase(),
                   ),
 
                   // continue with
@@ -224,9 +231,8 @@ class _RegisterpageState extends State<Registerpage> {
                         onTap: () => Navigator.pop(context),
                         child: Text(
                           "Login",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.cyan,
+                          style: boldText.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ),
