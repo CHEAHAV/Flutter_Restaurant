@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant/firebase_options.dart';
 import 'package:restaurant/models/restaurant.dart';
+import 'package:restaurant/pages/accounts/account_page.dart';
+import 'package:restaurant/pages/favorites/favorites_page.dart';
 import 'package:restaurant/pages/restaurants/cart_page.dart';
 import 'package:restaurant/pages/restaurants/intro_page.dart';
 import 'package:restaurant/pages/logins/auth_page.dart';
@@ -28,6 +30,7 @@ void main() async {
     ),
   );
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -52,6 +55,8 @@ class MyApp extends StatelessWidget {
         '/restaurant_page': (context) => RestaurantPage(),
         '/setting_page': (context) => SettingPage(),
         '/cart_page': (context) => CartPage(),
+        '/favorite_page': (context) => FavoritePage(),
+        '/account_page': (context) => AccountPage(),
       },
     );
   }

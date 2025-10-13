@@ -95,6 +95,7 @@ class _RestaurantPageState extends State<RestaurantPage>
     }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.tertiary,
+      extendBody: true,
       drawer: MyDrawer(),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [

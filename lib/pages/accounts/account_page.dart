@@ -6,6 +6,8 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      extendBody: true,
       appBar: AppBar(
         title: Text("Acccount"),
         automaticallyImplyLeading: false,
