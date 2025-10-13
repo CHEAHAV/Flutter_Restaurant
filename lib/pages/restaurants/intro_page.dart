@@ -25,7 +25,7 @@ class IntroPage extends StatelessWidget {
               opacity: 0.7,
               child: CurvedText(
                 curvature: 0.004,
-                text: "Restaurant",
+                text: "Restaurant".toUpperCase(),
                 textStyle: inTroText,
               ),
             ),

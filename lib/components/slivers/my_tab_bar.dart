@@ -8,10 +8,15 @@ class MyTabBar extends StatelessWidget {
   List<Tab> _buildCategoryTabs() {
     return FoodCategory.values.map((category) {
       String categoryName = category.toString().split('.').last;
+      String tabText =
+          categoryName[0].toUpperCase() +
+          categoryName.substring(1).toLowerCase();
       return Tab(
-        text:
-            categoryName[0].toUpperCase() +
-            categoryName.substring(1).toLowerCase(),
+        child: Padding(
+          // Set horizontal padding for the content to zero
+          padding: EdgeInsets.symmetric(horizontal: 0),
+          child: Text(tabText),
+        ),
       );
     }).toList();
   }
@@ -19,7 +24,7 @@ class MyTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8),
+      padding: EdgeInsets.only(left: 8, right: 8),
       child: Container(
         decoration: BoxDecoration(
           border: Border.symmetric(
@@ -31,7 +36,8 @@ class MyTabBar extends StatelessWidget {
         ),
         child: TabBar(
           controller: tabController,
-          indicatorPadding: EdgeInsets.zero,
+          // TabBarAlignment.start to start frome padding 0
+          tabAlignment: TabAlignment.start,
           tabs: _buildCategoryTabs(),
           isScrollable: true,
         ),

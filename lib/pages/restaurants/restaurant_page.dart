@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant/components/drawers/my_drawer.dart';
 import 'package:restaurant/components/foods/my_food_tile.dart';
+import 'package:restaurant/components/navigations/my_navigation_bar.dart';
 import 'package:restaurant/components/slivers/my_currect_location.dart';
 import 'package:restaurant/components/slivers/my_description_box.dart';
 import 'package:restaurant/components/slivers/my_sliver_appbar.dart';
 import 'package:restaurant/components/slivers/my_tab_bar.dart';
 import 'package:restaurant/models/food.dart';
 import 'package:restaurant/models/restaurant.dart';
+import 'package:restaurant/pages/accounts/account_page.dart';
+import 'package:restaurant/pages/favorites/favorites_page.dart';
 import 'package:restaurant/pages/restaurants/food_page.dart';
 
 class RestaurantPage extends StatefulWidget {
@@ -28,6 +31,16 @@ class _RestaurantPageState extends State<RestaurantPage>
       length: FoodCategory.values.length,
       vsync: this,
     );
+  }
+
+  // select index in bottom navigationbar
+  int _selectedIndex = 0;
+  // Navigation pages
+  final List<Widget> _pages = [RestaurantPage(), FavoritePage(), AccountPage()];
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
@@ -70,6 +83,16 @@ class _RestaurantPageState extends State<RestaurantPage>
 
   @override
   Widget build(BuildContext context) {
+    // If not on the home tab (index 0), show other pages
+    if (_selectedIndex != 0) {
+      return Scaffold(
+        body: _pages[_selectedIndex],
+        bottomNavigationBar: MyNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       drawer: MyDrawer(),
@@ -104,6 +127,10 @@ class _RestaurantPageState extends State<RestaurantPage>
             children: getFoodInThisCategory(restaurant.menu),
           ),
         ),
+      ),
+      bottomNavigationBar: MyNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant/components/styles/textstyle.dart';
+import 'package:restaurant/models/restaurant.dart';
 
 class MySliverAppBar extends StatelessWidget {
   final Widget child;
@@ -18,13 +20,26 @@ class MySliverAppBar extends StatelessWidget {
       // Make the AppBar appear when scrolling down
       floating: true,
       actions: [
-        IconButton(
-          onPressed: () {
-            // go to cart page
-            Navigator.pushNamed(context, '/cart_page');
+        Consumer<Restaurant>(
+          builder: (context, restaurant, child) {
+            final cartItemCount = restaurant.cart.length;
+            return Badge(
+              padding: EdgeInsets.zero,
+              label: Text(
+                cartItemCount.toString(),
+                style: TextStyle(color: Colors.white, fontSize: 10),
+              ),
+              isLabelVisible: cartItemCount > 0,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/cart_page');
+                },
+                icon: Icon(Icons.shopping_cart),
+              ),
+            );
           },
-          icon: Icon(Icons.shopping_cart),
         ),
+        SizedBox(width: 15),
       ],
       backgroundColor: Theme.of(context).colorScheme.surface,
       foregroundColor: Theme.of(context).colorScheme.inversePrimary,

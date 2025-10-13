@@ -20,7 +20,7 @@ TextStyle smallBoldText = TextStyle(
 );
 TextStyle inTroText = TextStyle(
   fontFamily: 'Wild',
-  fontSize: 40,
+  fontSize: 20,
   fontWeight: FontWeight.bold,
   letterSpacing: 8,
   color: Colors.grey,

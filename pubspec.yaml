@@ -43,6 +43,7 @@ dependencies:
   cloud_firestore: ^6.0.2
   drop_shadow: ^0.1.0
   curved_text: ^0.2.0
+  badges: ^3.1.2
 
 dev_dependencies:
   flutter_test:

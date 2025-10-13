@@ -44,6 +44,17 @@ class MyFoodTile extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("\$ ${food.price}"),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.favorite,
+                                size: 20,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.inversePrimary,
+                              ),
+                            ),
+                            SizedBox(width: 60),
                             Row(
                               children: [
                                 for (int i = 0; i < food.rating.floor(); i++)
