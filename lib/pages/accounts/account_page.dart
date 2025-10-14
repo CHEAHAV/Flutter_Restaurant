@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant/components/styles/textstyle.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -6,10 +7,15 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Theme.of(context).colorScheme.tertiary,
       extendBody: true,
       appBar: AppBar(
-        title: Text("Acccount"),
+        title: Text(
+          "Acccount",
+          style: bigText.copyWith(
+            color: Theme.of(context).colorScheme.inversePrimary,
+          ),
+        ),
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),

@@ -20,7 +20,6 @@ class FoodPage extends StatefulWidget {
 
 class _FoodPageState extends State<FoodPage> {
   // ... inside _FoodPageState ...
-
   // method add to cart
   void addToCart(Food food, Map<Addon, bool> selectedAddons) {
     // format the selected addons
@@ -33,7 +32,12 @@ class _FoodPageState extends State<FoodPage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("Add to cart success...!"),
+        title: Text(
+          "Success...!".toUpperCase(),
+          style: smallBoldText.copyWith(
+            color: Theme.of(context).colorScheme.inversePrimary,
+          ),
+        ),
         actions: [
           ElevatedButton(
             onPressed: () {
@@ -46,7 +50,7 @@ class _FoodPageState extends State<FoodPage> {
               // go to cart page
               Navigator.pushNamed(context, '/cart_page');
             },
-            child: Text("OK"),
+            child: Text("OK", style: boldText.copyWith(color: Colors.blue)),
           ),
         ],
       ),

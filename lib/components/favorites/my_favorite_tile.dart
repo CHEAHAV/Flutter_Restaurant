@@ -6,7 +6,12 @@ import 'package:restaurant/models/restaurant.dart';
 
 class MyFavoriteTile extends StatelessWidget {
   final FavoriteItem favoriteItem;
-  const MyFavoriteTile({super.key, required this.favoriteItem});
+  final Function()? onTap;
+  const MyFavoriteTile({
+    super.key,
+    required this.favoriteItem,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,89 +22,123 @@ class MyFavoriteTile extends StatelessWidget {
           color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              // food image
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  favoriteItem.favMenu.imagePath,
-                  fit: BoxFit.cover,
-                  height: 80,
-                  width: 80,
-                ),
-              ),
-              SizedBox(width: 10),
-              // food name, price and rating
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(favoriteItem.favMenu.name, style: smallBoldText),
-                    SizedBox(height: 5),
-                    Text(
-                      "\$ ${favoriteItem.favMenu.price}",
-                      style: smallText.copyWith(
-                        color: Theme.of(context).colorScheme.inversePrimary,
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Stack(
+              children: [
+                GestureDetector(
+                  onTap: onTap,
+                  child: Row(
+                    children: [
+                      // food image
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          favoriteItem.food.imagePath,
+                          fit: BoxFit.cover,
+                          height: 120,
+                          width: 120,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Text(
-                          favoriteItem.favMenu.rating.toString(),
-                          style: smallText.copyWith(
-                            color: Theme.of(context).colorScheme.inversePrimary,
-                          ),
+                      SizedBox(width: 10),
+                      // food name, price and rating
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(favoriteItem.food.name, style: smallBoldText),
+                            SizedBox(height: 5),
+                            Text(
+                              "\$ ${favoriteItem.food.price}",
+                              style: smallText.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.inversePrimary,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Row(
+                              children: [
+                                Text(
+                                  favoriteItem.food.rating.toString(),
+                                  style: smallText.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.inversePrimary,
+                                  ),
+                                ),
+                                SizedBox(width: 5),
+                                for (
+                                  int i = 0;
+                                  i < favoriteItem.food.rating.floor();
+                                  i++
+                                )
+                                  Icon(
+                                    Icons.star_sharp,
+                                    size: 16,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
+                              ],
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 5),
-                        for (
-                          int i = 0;
-                          i < favoriteItem.favMenu.rating.floor();
-                          i++
-                        )
-                          Icon(
-                            Icons.star_sharp,
-                            size: 16,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              // Remove from favorites button
-              IconButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text(
-                        "Do you want to remove food from favorite menu?",
                       ),
-                      actions: [
-                        MaterialButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text("No"),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  right: 10,
+                  top: 40,
+                  child: // Remove from favorites button
+                  IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text(
+                            "Do you want to remove food from favorite menu?",
+                            style: smallBoldText.copyWith(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.inversePrimary,
+                            ),
+                          ),
+                          actions: [
+                            MaterialButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                "No",
+                                style: boldText.copyWith(
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                restaurant.removeFromFavorite(
+                                  favoriteItem.food,
+                                );
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                "Yes",
+                                style: boldText.copyWith(color: Colors.red),
+                              ),
+                            ),
+                          ],
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            restaurant.removeFromFavorite(favoriteItem.favMenu);
-                            Navigator.pop(context);
-                          },
-                          child: Text("Yes"),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                icon: Icon(Icons.favorite, color: Colors.red),
-              ),
-            ],
+                      );
+                    },
+                    icon: Icon(Icons.favorite, color: Colors.red, size: 30),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

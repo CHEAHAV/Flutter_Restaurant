@@ -23,7 +23,7 @@ class MyNavigationBar extends StatelessWidget {
         context,
       ).copyWith(iconTheme: IconThemeData(color: Colors.white)),
       child: CurvedNavigationBar(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.primary,
         items: items,
         height: 70,
         index: currentIndex,

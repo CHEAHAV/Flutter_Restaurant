@@ -22,6 +22,7 @@ class RestaurantPage extends StatefulWidget {
 
 class _RestaurantPageState extends State<RestaurantPage>
     with SingleTickerProviderStateMixin {
+
   // Tab controller
   late TabController _tabController;
   @override
