@@ -17,9 +17,49 @@ class MyFoodTile extends StatelessWidget {
 
         void toggleFavorite() {
           if (isFavorite) {
-            restaurant.removeFromFavorite(food);
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text("Do you want to remove food from favorite menu?"),
+                actions: [
+                  MaterialButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("No"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      restaurant.removeFromFavorite(food);
+                      Navigator.pop(context);
+                    },
+                    child: Text("Yes"),
+                  ),
+                ],
+              ),
+            );
           } else {
-            restaurant.addToFavorite(food);
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text("Do you want add food to favorite menu?"),
+                actions: [
+                  MaterialButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("No"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      restaurant.addToFavorite(food);
+                      Navigator.pop(context);
+                    },
+                    child: Text("Yes"),
+                  ),
+                ],
+              ),
+            );
           }
         }
 

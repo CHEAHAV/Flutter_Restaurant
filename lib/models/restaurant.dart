@@ -1853,21 +1853,21 @@ class Restaurant extends ChangeNotifier {
   // add to Favorite
   void addToFavorite(Food food) {
     // Check if food is already in favorites
-    bool alreadyFavorite = _favorites.any((fav) => fav.food == food);
+    bool alreadyFavorite = _favorites.any((fav) => fav.favMenu == food);
 
     if (!alreadyFavorite) {
-      _favorites.add(FavoriteItem(food: food));
+      _favorites.add(FavoriteItem(favMenu: food));
       notifyListeners();
     }
   }
 
   void removeFromFavorite(Food food) {
-    _favorites.removeWhere((fav) => fav.food == food);
+    _favorites.removeWhere((fav) => fav.favMenu == food);
     notifyListeners();
   }
 
   bool isFoodFavorite(Food food) {
-    return _favorites.any((fav) => fav.food == food);
+    return _favorites.any((fav) => fav.favMenu == food);
   }
 
   // 1. add to cart
