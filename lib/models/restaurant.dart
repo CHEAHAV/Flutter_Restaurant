@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:restaurant/models/cart_item.dart';
+import 'package:restaurant/models/favorite_item.dart';
 import 'package:restaurant/models/food.dart';
 
 class Restaurant extends ChangeNotifier {
@@ -1843,6 +1844,31 @@ class Restaurant extends ChangeNotifier {
   String get deliveryAddress => _deliveryAddress;
 
   // O P E R A T I O N S
+
+  // Add this to your Restaurant class
+  final List<FavoriteItem> _favorites = [];
+
+  List<FavoriteItem> get favorites => _favorites;
+
+  // add to Favorite
+  void addToFavorite(Food food) {
+    // Check if food is already in favorites
+    bool alreadyFavorite = _favorites.any((fav) => fav.food == food);
+
+    if (!alreadyFavorite) {
+      _favorites.add(FavoriteItem(food: food));
+      notifyListeners();
+    }
+  }
+
+  void removeFromFavorite(Food food) {
+    _favorites.removeWhere((fav) => fav.food == food);
+    notifyListeners();
+  }
+
+  bool isFoodFavorite(Food food) {
+    return _favorites.any((fav) => fav.food == food);
+  }
 
   // 1. add to cart
   void addToCart(Food food, List<Addon> selectedAddons) {
