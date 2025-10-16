@@ -19,6 +19,14 @@ class AccountPage extends StatelessWidget {
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
+      body: Center(
+        child: Text(
+          "Maintenance",
+          style: boldText.copyWith(
+            color: Theme.of(context).colorScheme.inversePrimary,
+          ),
+        ),
+      ),
     );
   }
 }

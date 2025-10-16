@@ -81,7 +81,20 @@ class _RegisterpageState extends State<Registerpage> {
                 children: [
                   SizedBox(height: 15),
                   // logo
-                  DropShadow(child: Center(child: Icon(Icons.lock, size: 150))),
+                  DropShadow(
+                    child: Center(
+                      child: Container(
+                        width: 120,
+                        height: 120,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: const BoxDecoration(shape: BoxShape.circle),
+                        child: Image.network(
+                          'https://picsum.photos/seed/picsum/200/300',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
 
                   SizedBox(height: 15),
                   // text
