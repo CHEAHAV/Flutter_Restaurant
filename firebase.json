@@ -1,1 +1,39 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"onlinerestaurant-e9af0","appId":"1:1027745859721:android:a4ceb7008b0270dcb75e58","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"onlinerestaurant-e9af0","configurations":{"android":"1:1027745859721:android:a4ceb7008b0270dcb75e58","ios":"1:1027745859721:ios:d9a57eae4ded2b3cb75e58","macos":"1:1027745859721:ios:d9a57eae4ded2b3cb75e58","web":"1:1027745859721:web:5599bae074c2eca2b75e58","windows":"1:1027745859721:web:cb5027f45e4dacd9b75e58"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "onlinerestaurant-e9af0",
+          "appId": "1:1027745859721:android:a4ceb7008b0270dcb75e58",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "onlinerestaurant-e9af0",
+          "configurations": {
+            "android": "1:1027745859721:android:a4ceb7008b0270dcb75e58",
+            "ios": "1:1027745859721:ios:d9a57eae4ded2b3cb75e58",
+            "macos": "1:1027745859721:ios:d9a57eae4ded2b3cb75e58",
+            "web": "1:1027745859721:web:5599bae074c2eca2b75e58",
+            "windows": "1:1027745859721:web:cb5027f45e4dacd9b75e58"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
