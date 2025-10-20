@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant/components/buttons/my_button.dart';
 import 'package:restaurant/components/styles/textstyle.dart';
 import 'package:restaurant/components/textfields/my_information_field.dart';
+import 'package:restaurant/services/authentication/auth_service.dart';
 import 'package:restaurant/services/database/firestore.dart'; // Import the service
 
 class AccountPage extends StatefulWidget {
@@ -42,6 +43,77 @@ class _AccountPageState extends State<AccountPage> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  // delete user account and user detail
+  void deleteUserAccount() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          "Do you want to delete user account?",
+          style: smallBoldText.copyWith(
+            color: Theme.of(context).colorScheme.inversePrimary,
+          ),
+        ),
+        actions: [
+          MaterialButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              "Cancel",
+              style: smallBoldText.copyWith(
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () async {
+              if (currentUser != null) {
+                try {
+                  // delete firestore user detail
+                  await db.deleteUserDetail(currentUser!.uid);
+
+                  // delete firebase auth account
+                  await AuthService().deleteUserAccount();
+                  // user signout
+                  await AuthService().signOut();
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Error deleting account: $e")),
+                  );
+                }
+                Navigator.pop(context);
+                if (mounted) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text("Account was deleted...!"),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/login_page');
+                          },
+                          child: Text(
+                            "OK",
+                            style: smallBoldText.copyWith(color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              }
+            },
+            child: Text(
+              "Delete",
+              style: smallBoldText.copyWith(color: Colors.red),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   // Helper to show a loading indicator or a placeholder
@@ -167,9 +239,7 @@ class _AccountPageState extends State<AccountPage> {
                     // Delete Button
                     DropShadow(
                       child: ElevatedButton(
-                        onPressed: () {
-                          // Logic for deleting account...
-                        },
+                        onPressed: deleteUserAccount,
                         child: const SizedBox(
                           width: 70,
                           child: Text(

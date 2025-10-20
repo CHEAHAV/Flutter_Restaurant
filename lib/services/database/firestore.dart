@@ -39,8 +39,13 @@ class FirestoreService {
     }
   }
 
-  // GET user detail from database using UID (This is the method required by AccountPage)
+  // GET user detail from database using UID 
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserDetail(String uid) {
     return FirebaseFirestore.instance.collection('users').doc(uid).get();
+  }
+
+  // delete user detail from database using UID
+  Future<void> deleteUserDetail(String uid) async {
+    await FirebaseFirestore.instance.collection('users').doc(uid).delete();
   }
 }

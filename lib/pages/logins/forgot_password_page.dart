@@ -36,7 +36,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           builder: (context) => const AlertDialog(
             title: Text("Password Reset"),
             content: Text(
-              "✅ A password reset link has been sent! Check your email.",
+              "A password reset link has been sent! Check your email.",
             ),
           ),
         );
