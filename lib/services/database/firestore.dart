@@ -14,12 +14,13 @@ class FirestoreService {
   // save orders to database
   Future<void> saveOrderToDatabse(String receipt) async {
     await orders.add({
-      'date': DateTime.now(), 'order': receipt,
+      'date': DateTime.now(),
+      'order': receipt,
       // add more fields as necessary...
     });
   }
 
-// add user detail to database
+  // add user detail to database
   Future<void> addUserDetail(
     String uid,
     String username,
@@ -36,5 +37,10 @@ class FirestoreService {
     } on FirebaseException catch (e) {
       throw Exception(e.message);
     }
+  }
+
+  // GET user detail from database using UID (This is the method required by AccountPage)
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserDetail(String uid) {
+    return FirebaseFirestore.instance.collection('users').doc(uid).get();
   }
 }

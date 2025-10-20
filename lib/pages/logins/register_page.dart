@@ -34,6 +34,7 @@ class _RegisterpageState extends State<Registerpage> {
       obscreTextpassword = !obscreTextpassword;
     });
   }
+
   // get auth service
   var authService = AuthService();
   // get access to database
@@ -156,10 +157,10 @@ class _RegisterpageState extends State<Registerpage> {
                         return 'Please enter your email.';
                       }
                       // Simple email format check
-                      if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+                      if (!RegExp(r'\S+@gmail.com').hasMatch(value)) {
                         return 'Please enter a valid email address.';
                       }
-                      return null; // Return null if validation passes
+                      return null;
                     },
                   ),
 
@@ -168,15 +169,15 @@ class _RegisterpageState extends State<Registerpage> {
                   MyTextField(
                     controller: passwordController,
                     labelText: "Password",
-                    obscreText: obscreTextpassword, // Uses state variable
+                    obscreText: obscreTextpassword,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter a password.'; // Corrected message
+                        return 'Please enter a password.';
                       }
                       if (value.length < 6) {
                         return 'Password must be at least 6 characters.';
                       }
-                      return null; // Return null if validation passes
+                      return null;
                     },
                     suffixIcon: IconButton(
                       onPressed: password,
@@ -192,7 +193,7 @@ class _RegisterpageState extends State<Registerpage> {
                   MyTextField(
                     controller: confirmPasswordController,
                     labelText: "Confirm Password",
-                    obscreText: obscreTextpassword, // Uses state variable
+                    obscreText: obscreTextpassword,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please confirm your password.';

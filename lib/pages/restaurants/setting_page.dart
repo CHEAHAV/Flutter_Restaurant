@@ -17,6 +17,7 @@ class SettingPage extends StatelessWidget {
             color: Theme.of(context).colorScheme.inversePrimary,
           ),
         ),
+        centerTitle: true,
       ),
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       body: Column(

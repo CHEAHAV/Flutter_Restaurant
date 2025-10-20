@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
 class MyInformationField extends StatelessWidget {
+  final TextEditingController controller;
   final String labelText;
   final Widget? prefixIcon;
+  final bool obscreText;
   const MyInformationField({
     super.key,
+    required this.controller,
     required this.labelText,
     required this.prefixIcon,
+    required this.obscreText,
   });
 
   @override
@@ -16,6 +20,8 @@ class MyInformationField extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
         child: TextField(
+          controller: controller,
+          obscureText: obscreText,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             labelText: labelText,
