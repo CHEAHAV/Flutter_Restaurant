@@ -1,14 +1,17 @@
 import 'package:drop_shadow/drop_shadow.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurant/components/buttons/my_button.dart';
 import 'package:restaurant/components/connections/my_connection.dart';
 import 'package:restaurant/components/styles/textstyle.dart';
 import 'package:restaurant/components/textfields/my_text_field.dart';
 import 'package:restaurant/services/authentication/auth_service.dart';
+import 'package:restaurant/services/database/firestore.dart';
 
 class Registerpage extends StatefulWidget {
-  const Registerpage({super.key, required void Function() onTap});
+  //define the onTap function as a field in the stateful widget
+  final void Function()? onTap;
+  const Registerpage({super.key, required this.onTap});
 
   @override
   State<Registerpage> createState() => _RegisterpageState();
@@ -20,11 +23,8 @@ class _RegisterpageState extends State<Registerpage> {
 
   // controller
   final userController = TextEditingController();
-
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
-
   final confirmPasswordController = TextEditingController();
 
   // hint password
@@ -34,38 +34,75 @@ class _RegisterpageState extends State<Registerpage> {
       obscreTextpassword = !obscreTextpassword;
     });
   }
-
+  // get auth service
   var authService = AuthService();
-  // register method
+  // get access to database
+  FirestoreService db = FirestoreService();
+
+  @override
+  void dispose() {
+    userController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  // register method (CLEANED UP)
   void registerUser(BuildContext context) async {
     if (!_formKey.currentState!.validate()) {
-      // If validation fails, the validator message will appear,
-      // and we stop the function here.
       return;
     }
 
-    // show loading circle
+    // Check password confirmation early
+    if (!passwordConfirmed()) {
+      return;
+    }
+
+    //Show loading circle and prevent dismissal
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
-        return Center(child: CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator());
       },
     );
-    if (context.mounted) {
-      Navigator.pop(context);
-    }
+
+    // authentication user
     try {
-      await authService.createUserWithEmailAndPassword(
-        emailController.text,
-        passwordController.text,
+      // create user and capture result
+      UserCredential userCredential = await authService
+          .createUserWithEmailAndPassword(
+            emailController.text.trim(),
+            passwordController.text.trim(),
+          );
+
+      // get user id
+      String uid = userCredential.user!.uid;
+
+      // add user detail
+      await db.addUserDetail(
+        uid,
+        userController.text.trim(),
+        emailController.text.trim(),
+        passwordController.text.trim(),
       );
-      // success sign up
+
+      // demiss loading dialog on success
       if (context.mounted) {
+        Navigator.pop(context);
+        //navigate on success
         Navigator.pushNamed(context, '/intro_page');
       }
-    } on FirebaseException catch (e) {
+    } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
+  }
+
+  // confirm password
+  bool passwordConfirmed() {
+    return passwordController.text.trim() ==
+        confirmPasswordController.text.trim();
   }
 
   @override
@@ -79,11 +116,13 @@ class _RegisterpageState extends State<Registerpage> {
               key: _formKey,
               child: Column(
                 children: [
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   // logo
-                  DropShadow(child: Center(child: Icon(Icons.lock, size: 150))),
+                  const DropShadow(
+                    child: Center(child: Icon(Icons.lock, size: 150)),
+                  ),
 
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   // text
                   Text(
                     "You can register now...!",
@@ -93,7 +132,7 @@ class _RegisterpageState extends State<Registerpage> {
                   ),
 
                   // user
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   MyTextField(
                     controller: userController,
                     labelText: "User",
@@ -107,7 +146,7 @@ class _RegisterpageState extends State<Registerpage> {
                   ),
 
                   // email
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   MyTextField(
                     controller: emailController,
                     labelText: "Email",
@@ -125,14 +164,14 @@ class _RegisterpageState extends State<Registerpage> {
                   ),
 
                   // password
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   MyTextField(
                     controller: passwordController,
                     labelText: "Password",
-                    obscreText: true,
+                    obscreText: obscreTextpassword, // Uses state variable
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your email. like...@gmail.com';
+                        return 'Please enter a password.'; // Corrected message
                       }
                       if (value.length < 6) {
                         return 'Password must be at least 6 characters.';
@@ -142,38 +181,38 @@ class _RegisterpageState extends State<Registerpage> {
                     suffixIcon: IconButton(
                       onPressed: password,
                       icon: obscreTextpassword
-                          ? Icon(Icons.visibility_off)
-                          : Icon(Icons.visibility),
+                          ? const Icon(Icons.visibility_off)
+                          : const Icon(Icons.visibility),
                       color: Theme.of(context).colorScheme.inversePrimary,
                     ),
                   ),
 
                   // comfirm password
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   MyTextField(
                     controller: confirmPasswordController,
                     labelText: "Confirm Password",
-                    obscreText: obscreTextpassword,
+                    obscreText: obscreTextpassword, // Uses state variable
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your password.';
+                        return 'Please confirm your password.';
                       }
                       if (value != passwordController.text) {
                         return 'Password and Confirm password must be matching.';
                       }
-                      return null; // Return null if validation passes
+                      return null;
                     },
                     suffixIcon: IconButton(
                       onPressed: password,
                       icon: obscreTextpassword
-                          ? Icon(Icons.visibility_off)
-                          : Icon(Icons.visibility),
+                          ? const Icon(Icons.visibility_off)
+                          : const Icon(Icons.visibility),
                       color: Theme.of(context).colorScheme.inversePrimary,
                     ),
                   ),
 
                   // Signup
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   MyButton(
                     onTap: () {
                       registerUser(context);
@@ -182,7 +221,7 @@ class _RegisterpageState extends State<Registerpage> {
                   ),
 
                   // continue with
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Row(
                     children: [
                       Expanded(
@@ -191,7 +230,7 @@ class _RegisterpageState extends State<Registerpage> {
                           endIndent: 10,
                         ),
                       ),
-                      Text("Or Continue with"),
+                      const Text("Or Continue with"),
                       Expanded(
                         child: Divider(
                           color: Theme.of(context).colorScheme.inverseSurface,
@@ -202,7 +241,7 @@ class _RegisterpageState extends State<Registerpage> {
                   ),
 
                   // image google and apple
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -211,7 +250,7 @@ class _RegisterpageState extends State<Registerpage> {
                         imagePath: ('assets/icons/logo/google.png'),
                         onTap: () {},
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       // apple
                       MyConnection(
                         imagePath: ('assets/icons/logo/apple.png'),
@@ -221,14 +260,15 @@ class _RegisterpageState extends State<Registerpage> {
                   ),
 
                   // login text
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Are you already have an account?"),
-                      SizedBox(width: 5),
+                      const Text("Are you already have an account?"),
+                      const SizedBox(width: 5),
                       GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        // Use the provided onTap function to go to the login page
+                        onTap: widget.onTap ?? () => Navigator.pop(context),
                         child: Text(
                           "Login",
                           style: boldText.copyWith(
