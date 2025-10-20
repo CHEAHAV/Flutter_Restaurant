@@ -16,20 +16,20 @@ class MyFavoriteTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<Restaurant>(
-      builder: (context, restaurant, child) => Container(
-        margin: EdgeInsets.only(bottom: 10),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Stack(
-              children: [
-                GestureDetector(
-                  onTap: onTap,
-                  child: Row(
+      builder: (context, restaurant, child) => GestureDetector(
+        onTap: onTap,
+        child: Container(
+          margin: EdgeInsets.only(bottom: 10),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Stack(
+                children: [
+                  Row(
                     children: [
                       // food image
                       ClipRRect(
@@ -88,56 +88,58 @@ class MyFavoriteTile extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                Positioned(
-                  right: 10,
-                  top: 40,
-                  child: // Remove from favorites button
-                  IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(
-                            "Do you want to remove food from favorite menu?",
-                            style: smallBoldText.copyWith(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.inversePrimary,
+                  Positioned(
+                    right: 10,
+                    top: 40,
+                    child: // Remove from favorites button
+                    IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text(
+                              "Do you want to remove food from favorite menu?",
+                              style: smallBoldText.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.inversePrimary,
+                              ),
                             ),
-                          ),
-                          actions: [
-                            MaterialButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                "No",
-                                style: boldText.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
+                            actions: [
+                              MaterialButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  "No",
+                                  style: boldText.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
                                 ),
                               ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                restaurant.removeFromFavorite(
-                                  favoriteItem.food,
-                                );
-                                Navigator.pop(context);
-                              },
-                              child: Text(
-                                "Yes",
-                                style: boldText.copyWith(color: Colors.red),
+                              ElevatedButton(
+                                onPressed: () {
+                                  restaurant.removeFromFavorite(
+                                    favoriteItem.food,
+                                  );
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  "Yes",
+                                  style: boldText.copyWith(color: Colors.red),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    icon: Icon(Icons.favorite, color: Colors.red, size: 30),
+                            ],
+                          ),
+                        );
+                      },
+                      icon: Icon(Icons.favorite, color: Colors.red, size: 30),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

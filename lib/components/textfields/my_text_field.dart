@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class MyTextField extends StatelessWidget {
   final TextEditingController controller;
-  final String hintText;
+  final String labelText;
   final bool obscreText;
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
   const MyTextField({
     super.key,
     required this.controller,
-    required this.hintText,
+    required this.labelText,
     required this.obscreText,
     this.suffixIcon,
     required this.validator,
@@ -24,7 +24,7 @@ class MyTextField extends StatelessWidget {
         obscureText: obscreText,
         validator: validator,
         decoration: InputDecoration(
-          hintText: hintText,
+          labelText: labelText,
           suffixIcon: suffixIcon,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
@@ -36,6 +36,7 @@ class MyTextField extends StatelessWidget {
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.primary,
             ),
+            borderRadius: BorderRadius.circular(16),
           ),
           fillColor: Theme.of(context).colorScheme.secondary,
           filled: true,

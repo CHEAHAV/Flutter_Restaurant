@@ -17,7 +17,7 @@ class FavoritePage extends StatelessWidget {
         final favoriteItems = restaurant.favorites;
 
         return Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.tertiary,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           extendBody: true,
           drawer: MyDrawer(),
           appBar: AppBar(

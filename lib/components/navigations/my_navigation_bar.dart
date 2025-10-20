@@ -28,7 +28,7 @@ class MyNavigationBar extends StatelessWidget {
         height: 70,
         index: currentIndex,
         onTap: onTap,
-        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        backgroundColor: Colors.transparent,
         buttonBackgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );

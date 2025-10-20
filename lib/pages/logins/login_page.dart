@@ -5,6 +5,7 @@ import 'package:restaurant/components/buttons/my_button.dart';
 import 'package:restaurant/components/connections/my_connection.dart';
 import 'package:restaurant/components/styles/textstyle.dart';
 import 'package:restaurant/components/textfields/my_text_field.dart';
+import 'package:restaurant/pages/logins/forgot_password_page.dart';
 import 'package:restaurant/services/authentication/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
@@ -93,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 25),
                   MyTextField(
                     controller: emailController,
-                    hintText: "Email",
+                    labelText: "Email",
                     obscreText: false,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -114,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 10),
                   MyTextField(
                     controller: passwordController,
-                    hintText: "Password",
+                    labelText: "Password",
                     obscreText: passwordobscreText,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -137,14 +138,20 @@ class _LoginPageState extends State<LoginPage> {
                   ),
 
                   // forget password
-                  SizedBox(height: 10),
+                  SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        "forget Password?",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
+                      GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgotPasswordPage(),
+                          ),
+                        ),
+                        child: Text(
+                          "forget Password?",
+                          style: smallText.copyWith(color: Colors.blue),
                         ),
                       ),
                     ],

@@ -79,22 +79,9 @@ class _RegisterpageState extends State<Registerpage> {
               key: _formKey,
               child: Column(
                 children: [
-                  SizedBox(height: 15),
+                  SizedBox(height: 10),
                   // logo
-                  DropShadow(
-                    child: Center(
-                      child: Container(
-                        width: 120,
-                        height: 120,
-                        clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(shape: BoxShape.circle),
-                        child: Image.network(
-                          'https://picsum.photos/seed/picsum/200/300',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
+                  DropShadow(child: Center(child: Icon(Icons.lock, size: 150))),
 
                   SizedBox(height: 15),
                   // text
@@ -109,7 +96,7 @@ class _RegisterpageState extends State<Registerpage> {
                   SizedBox(height: 25),
                   MyTextField(
                     controller: userController,
-                    hintText: "User",
+                    labelText: "User",
                     obscreText: false,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -123,7 +110,7 @@ class _RegisterpageState extends State<Registerpage> {
                   SizedBox(height: 10),
                   MyTextField(
                     controller: emailController,
-                    hintText: "Email",
+                    labelText: "Email",
                     obscreText: false,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -141,7 +128,7 @@ class _RegisterpageState extends State<Registerpage> {
                   SizedBox(height: 10),
                   MyTextField(
                     controller: passwordController,
-                    hintText: "Password",
+                    labelText: "Password",
                     obscreText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -165,7 +152,7 @@ class _RegisterpageState extends State<Registerpage> {
                   SizedBox(height: 10),
                   MyTextField(
                     controller: confirmPasswordController,
-                    hintText: "Confirm Password",
+                    labelText: "Confirm Password",
                     obscreText: obscreTextpassword,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
